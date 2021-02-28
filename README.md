@@ -2,7 +2,7 @@
 
 ## summary
 
-I want to use named params in `Ecto.Adapters.SQL.Query` so I try make this.
+I want to use named params in Elixir `Ecto.Adapters.SQL.Query` so I try make this.
 
 ## example
 
