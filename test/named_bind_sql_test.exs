@@ -33,6 +33,22 @@ defmodule NamedBindSqlTest do
     assert NamedBindSql.replace_with_map(string, map) == "SELECT * FROM table1 AS t1 WHERE t1.id = $1 AND t1.created_at = $2 AND t1.id = $1 ;"
   end
 
+  test "replace with map within new line" do
+    string = "SELECT * FROM table1 AS t1\n"
+    <> "WHERE 1 = 1\n"
+    <> "AND t1.id = :id\n"
+    <> "AND t1.created_at = :created_at \n"
+    <> "AND t1.id = :id;"
+
+    map = %{":id" => "$1", ":created_at" => "$2"}
+
+    assert NamedBindSql.replace_with_map(string, map) == "SELECT * FROM table1 AS t1 \n"
+    <> "WHERE 1 = 1 \n"
+    <> "AND t1.id = $1 \n"
+    <> "AND t1.created_at = $2  \n"
+    <> "AND t1.id = $1 ;"
+  end
+
   test "prepare bind list" do
     prepare_list = [":id", ":created_at"]
 

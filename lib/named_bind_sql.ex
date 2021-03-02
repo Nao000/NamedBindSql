@@ -15,7 +15,7 @@ defmodule NamedBindSql do
 
   def only_colon_word(sql) do
     sql
-    |> String.split([" ", ";"])
+    |> String.split([" ", ";", "\n"])
     |> Enum.filter(fn(x) -> String.at(x, 0) == ":" end)
   end
 
@@ -36,6 +36,7 @@ defmodule NamedBindSql do
   def replace_with_map(string, map) do
     string
     |> String.replace(";", " ;")
+    |> String.replace("\n", " \n")
     |> String.split([" "])
     |> Enum.map_join(" ", fn word -> _replace_with_map(word, map) end)
   end
