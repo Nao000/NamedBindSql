@@ -1,4 +1,20 @@
 defmodule NamedBindSql do
+  @doc """
+  ## example
+
+      iex> sql = "SELECT * FROM table1 AS t1 WHERE t1.id = :id1 AND t1.id2 = :id2 AND t1.id = :id1;"
+      "SELECT * FROM table1 AS t1 WHERE t1.id = :id1 AND t1.id2 = :id2 AND t1.id = :id1;"
+
+      iex> params = %{":id1" => 1, ":id2" => 2}
+      %{":id1" => 1, ":id2" => 2}
+
+      iex> {sql_doller, param_list} = NamedBindSql.prepare_sql_with_params(sql, params)
+      {
+        "SELECT * FROM table1 AS t1 WHERE t1.id = $1 AND t1.id2 = $2 AND t1.id = $1 ;",
+        [1, 2]
+      }
+
+  """
   def prepare_sql_with_params(sql, bind_map) do
     remove_duplicate_colon_word = sql
     |> _only_colon_word()

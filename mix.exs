@@ -8,7 +8,7 @@ defmodule NamedBindSql.MixProject do
   def project do
     [
       app: :named_bind_sql,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.9",
       name: "NamedBindSql",
       description: @description,
