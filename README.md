@@ -34,7 +34,7 @@ by adding `named_bind_sql` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:named_bind_sql, "~> 0.1.0"}
+    {:named_bind_sql, "~> 0.1.1"}
   ]
 end
 ```
