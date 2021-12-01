@@ -33,7 +33,8 @@ defmodule NamedBindSql do
     sql
     |> String.split([" ", ";", "\n"])
     |> Enum.filter(fn(x) -> String.at(x, 0) == ":" end)
-  end
+    |> Enum.map(fn(x) -> String.replace(x, ":", "") end)
+end
 
   defp _remove_duplicate_colon_word(colon_word_list) do
     colon_word_list |> Enum.uniq
@@ -50,6 +51,12 @@ defmodule NamedBindSql do
   end
 
   defp replace_with_map(string, map) do
+    map = map
+    |> Enum.map(fn {key, val} ->
+        %{":"<>key => val}
+      end)
+    |> map_integrate(Map.new())
+
     string
     |> String.replace(";", " ;")
     |> String.replace("\n", " \n")
@@ -57,8 +64,21 @@ defmodule NamedBindSql do
     |> Enum.map_join(" ", fn word -> _replace_with_map(word, map) end)
   end
 
+  defp map_integrate([], integrated_map)  do
+    integrated_map
+  end
+
+  defp map_integrate(list_in_map, integrated_map ) do
+    [head | tail ] = list_in_map
+
+    integrated_map = Map.merge(head, integrated_map )
+
+    map_integrate(tail, integrated_map)
+  end
+
   defp _replace_with_map(word, map) do
     doller = Map.get(map, word)
+
     if doller, do: doller, else: word
   end
 
