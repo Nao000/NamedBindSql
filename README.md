@@ -9,7 +9,7 @@ I want to use named params in Elixir `Ecto.Adapters.SQL.Query` so I try make thi
 1. prepare sql with named params.
    * `sql = "SELECT * FROM table1 AS t1 WHERE t1.id = :id AND t1.created_at = :created_at AND t1.id = :id;"`
 1. prepare params map
-   * `params = %{":id" => 1000, ":created_at" => "2021-02-28 00:00:00"}`
+   * `params = %{"id" => 1000, "created_at" => "2021-02-28 00:00:00"}`
 1. execute
    * `{sql_doller, param_list} = NamedBindSql.prepare_sql_with_params(sql, params)`
 1. result
