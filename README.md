@@ -1,9 +1,5 @@
 # NamedBindSql
 
-## summary
-
-I want to use named params in Elixir `Ecto.Adapters.SQL.Query` so I try make this.
-
 ## example
 
 1. prepare sql with named params.
